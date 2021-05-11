@@ -2,7 +2,6 @@
 
 int main(int argc, char** argv)
 {
-  #error compile error pull request
   printf("hello world");
   if (argc > 1) {
     printf(", %s", argv[1]);
