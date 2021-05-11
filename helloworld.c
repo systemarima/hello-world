@@ -7,6 +7,6 @@ int main(int argc, char** argv)
     printf(", %s", argv[1]);
   }
   printf("\n");
-  printf("test github pull request 2\n");
+  printf("test github pull request 6 from ferrywu\n");
   return 0;
 }
