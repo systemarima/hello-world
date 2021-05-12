@@ -12,11 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: compile with gcc
       run: gcc helloworld.c
-    - uses: actions/upload-artifact@v2
     - name: store compilation result
+      uses: actions/upload-artifact@v2
       with:
           name: helloworld
           path: a.out
