@@ -34,12 +34,12 @@ jobs:
         # email subject
         subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
         # email body as text
-        html_body: <h1> Build ${{ job.status }} </h1></br></br>
+        html_body: <h1> Build ${{ job.status }} </h1></br>
                    <table>
                    <tr><td> build url </td><td>https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}</td></tr>
                    <tr><td> build commit </td><td>https://github.com/${{ github.repository }}/commit/${{ github.sha }}</td></tr>
                    </table>
         # comma-separated string, send email to
-        to: ferrywu@arimacomm.com.tw
+        to: ferrywu@arimacomm.com.tw,williamhu@arimacomm.com.tw
         # from email name
         from: Ferry Wu
