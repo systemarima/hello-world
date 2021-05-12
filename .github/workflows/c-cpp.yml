@@ -21,7 +21,6 @@ jobs:
       with:
           name: helloworld
           path: a.out
-          env-url: outurl
     - name: Send mail
       if: always()
       uses: dawidd6/action-send-mail@v2
@@ -35,7 +34,7 @@ jobs:
         # email subject
         subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
         # email body as text
-        html_body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} </br> output: "${{ env.outurl }}"
+        html_body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} </br> https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         # comma-separated string, send email to
         to: ferrywu@arimacomm.com.tw
         # from email name
