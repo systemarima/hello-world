@@ -2,6 +2,7 @@
 
 int main(int argc, char** argv)
 {
+  #error test sending build error result by email
   printf("hello world");
   if (argc > 1) {
     printf(", %s", argv[1]);
