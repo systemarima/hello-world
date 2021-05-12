@@ -40,3 +40,5 @@ jobs:
         to: ferrywu@arimacomm.com.tw
         # from email name
         from: Ferry Wu
+        # Optional whether this connection use TLS (default is true if server_port is 465)
+        secure: true
