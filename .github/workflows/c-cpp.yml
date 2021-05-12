@@ -23,7 +23,7 @@ jobs:
           path: a.out
     - name: Send mail
       if: always()
-      uses: dawidd6/action-send-mail@v2
+      uses: dawidd6/action-send-mail@v3
       with:
         # mail server settings
         server_address: smtp.gmail.com
@@ -34,8 +34,8 @@ jobs:
         # email subject
         subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
         # email body as text
-        body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-              https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        html_body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} </br>
+                   https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         # comma-separated string, send email to
         to: ferrywu@arimacomm.com.tw
         # from email name
