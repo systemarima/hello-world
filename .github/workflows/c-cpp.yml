@@ -13,5 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: gcc
+    - name: compile with gcc
       run: gcc helloworld.c
+    - uses: actions/upload-artifact@v2
+    - name: store compilation result
+      with:
+          name: helloworld
+          path: a.out
