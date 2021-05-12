@@ -34,7 +34,8 @@ jobs:
         # email subject
         subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
         # email body as text
-        html_body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }} </br> https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+        body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+              https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
         # comma-separated string, send email to
         to: ferrywu@arimacomm.com.tw
         # from email name
