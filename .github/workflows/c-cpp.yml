@@ -43,4 +43,4 @@ jobs:
         # comma-separated string, send email to
         to: ferrywu@arimacomm.com.tw,williamhu@arimacomm.com.tw
         # from email name
-        from: Ferry Wu
+        from: github-ferrywu
