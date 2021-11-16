@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  # schedule:
+  #   # run 9:00 UCT time every date, i.e. 17:00 Taipei time
+  #   - cron:  '0 9 * * *'
 
 jobs:
   build:
@@ -16,11 +19,48 @@ jobs:
       uses: actions/checkout@v2
     - name: compile with gcc
       run: gcc helloworld.c
+
     - name: store compilation result
       uses: actions/upload-artifact@v2
       with:
-          name: helloworld
+          name: executable
           path: a.out
+
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H-%M-%S')"
+    - name: Get respository name
+      id: repository_name
+      run: echo "::set-output name=repository_name::$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
+
+    - name: Upload build output
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ steps.repository_name.outputs.repository_name }}
+        path: a.out
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.date.outputs.date }}
+        release_name: ${{ steps.date.outputs.date }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: ${{ github.workspace }}/a.out
+        asset_name: ${{ steps.repository_name.outputs.repository_name }}
+        asset_content_type: application/octet-stream
+
     - name: Send mail
       if: always()
       uses: dawidd6/action-send-mail@v3
@@ -36,11 +76,13 @@ jobs:
         # email body as text
         html_body: <h1> Build ${{ job.status }} </h1></br>
                    <table>
-                   <tr><td> build commit message </td><td>${{ github.event.head_commit.message }}</td></tr>
+                   <tr><td> build commit message </td><td><font color="#3366BB">${{ github.event.head_commit.message }}</font></td></tr>
                    <tr><td> build commit </td><td>https://github.com/${{ github.repository }}/commit/${{ github.sha }}</td></tr>
                    <tr><td> build url </td><td>https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}</td></tr>
+                   <tr><td> release url </td><td>${{ steps.create_release.outputs.html_url }}</td></tr>
                    </table>
         # comma-separated string, send email to
-        to: ferrywu@arimacomm.com.tw,williamhu@arimacomm.com.tw
+        to: ferrywu@arimacomm.com.tw
         # from email name
         from: github-${{ github.repository_owner }}
+  
