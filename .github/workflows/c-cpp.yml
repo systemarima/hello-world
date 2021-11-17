@@ -1,7 +1,8 @@
 name: C/C++ CI
 
-on: [push, pull_request]
 on:
+  push:
+  pull_request:
   schedule:
     # run 9:00 UCT time every date, i.e. 17:00 Taipei time
     - cron:  '0 9 * * *'
