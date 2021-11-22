@@ -79,6 +79,7 @@ jobs:
         html_body: <h1> Build ${{ job.status }} </h1></br>
                    <table>
                    <tr><td> branch </td><td><font color="#3366BB">${{ steps.branch.outputs.branch }}</font></td></tr>
+                   <tr><td> build triggered by </td><td><font color="#3366BB">${{ github.actor }}</font></td></tr>
                    <tr><td> build commit message </td><td><font color="#3366BB">${{ github.event.head_commit.message }}</font></td></tr>
                    <tr><td> build commit </td><td>https://github.com/${{ github.repository }}/commit/${{ github.sha }}</td></tr>
                    <tr><td> build url </td><td>https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}</td></tr>
